@@ -29,10 +29,11 @@ import (
 */
 
 type Result struct {
-	ReqList       []Request `json:"req_list"`
-	AllReqList    []Request `json:"all_req_list"`
-	AllDomainList []string  `json:"all_domain_list"`
-	SubDomainList []string  `json:"sub_domain_list"`
+	ReqList       []Request         `json:"req_list"`
+	AllReqList    []Request         `json:"all_req_list"`
+	AllDomainList []string          `json:"all_domain_list"`
+	SubDomainList []string          `json:"sub_domain_list"`
+	FoundMap      map[string]string `json:"found_map"`
 }
 
 type Request struct {
@@ -67,6 +68,7 @@ var (
 	outputJsonPath          string
 	logLevel                string
 	Version                 string
+	searchKeywords          string
 )
 
 func main() {
@@ -111,6 +113,9 @@ func run(c *cli.Context) error {
 	}
 	logger.Logger.SetLevel(level)
 
+	logger.Logger.Info("Search keyword: " + searchKeywords)
+	taskConfig.SearchKeywords = strings.Split(searchKeywords, ",")
+
 	var targets []*model2.Request
 	for _, _url := range c.Args().Slice() {
 		var req model2.Request
@@ -120,9 +125,9 @@ func run(c *cli.Context) error {
 			continue
 		}
 		if postData != "" {
-			req = model2.GetRequest(config.POST, url, getOption())
+			req = model2.GetRequest(config.POST, url, GetOption())
 		} else {
-			req = model2.GetRequest(config.GET, url, getOption())
+			req = model2.GetRequest(config.GET, url, GetOption())
 		}
 		req.Proxy = taskConfig.Proxy
 		targets = append(targets, &req)
@@ -137,11 +142,11 @@ func run(c *cli.Context) error {
 	}
 
 	// 检查自定义的表单参数配置
-	taskConfig.CustomFormValues, err = parseCustomFormValues(customFormTypeValues.Value())
+	taskConfig.CustomFormValues, err = ParseCustomFormValues(customFormTypeValues.Value())
 	if err != nil {
 		logger.Logger.Fatal(err)
 	}
-	taskConfig.CustomFormKeywordValues, err = keywordStringToMap(customFormKeywordValues.Value())
+	taskConfig.CustomFormKeywordValues, err = KeywordStringToMap(customFormKeywordValues.Value())
 	if err != nil {
 		logger.Logger.Fatal(err)
 	}
@@ -171,7 +176,7 @@ func run(c *cli.Context) error {
 		taskConfig.CustomFormValues["default"] = config.DefaultInputText
 	}
 
-	go handleExit(task)
+	go HandleExit(task)
 	logger.Logger.Info("Start crawling.")
 	task.Run()
 	result := task.Result
@@ -191,7 +196,7 @@ func run(c *cli.Context) error {
 	return nil
 }
 
-func getOption() model2.Options {
+func GetOption() model2.Options {
 	var option model2.Options
 	if postData != "" {
 		option.PostData = postData
@@ -207,7 +212,7 @@ func getOption() model2.Options {
 	return option
 }
 
-func parseCustomFormValues(customData []string) (map[string]string, error) {
+func ParseCustomFormValues(customData []string) (map[string]string, error) {
 	parsedData := map[string]string{}
 	for _, item := range customData {
 		keyValue := strings.Split(item, "=")
@@ -224,7 +229,7 @@ func parseCustomFormValues(customData []string) (map[string]string, error) {
 	return parsedData, nil
 }
 
-func keywordStringToMap(data []string) (map[string]string, error) {
+func KeywordStringToMap(data []string) (map[string]string, error) {
 	parsedData := map[string]string{}
 	for _, item := range data {
 		keyValue := strings.Split(item, "=")
@@ -287,7 +292,7 @@ func (p *ProxyTask) doRequest() {
 		&requests.ReqOptions{Timeout: 1, AllowRedirect: false, Proxy: p.pushProxy})
 }
 
-func handleExit(t *pkg.CrawlerTask) {
+func HandleExit(t *pkg.CrawlerTask) {
 	<-signalChan
 	fmt.Println("exit ...")
 	t.Pool.Tune(1)
@@ -322,6 +327,7 @@ func getJsonSerialize(result *pkg.Result) []byte {
 	res.ReqList = reqList
 	res.AllDomainList = result.AllDomainList
 	res.SubDomainList = result.SubDomainList
+	res.FoundMap = result.FoundMap
 
 	resBytes, err := json.Marshal(res)
 	if err != nil {

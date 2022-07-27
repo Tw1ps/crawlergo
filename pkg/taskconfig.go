@@ -13,7 +13,7 @@ type TaskConfig struct {
 	DomContentLoadedTimeout time.Duration
 	TabRunTimeout           time.Duration     // 单个标签页超时
 	PathByFuzz              bool              // 通过字典进行Path Fuzz
-	FuzzDictPath            string            //Fuzz目录字典
+	FuzzDictPath            string            // Fuzz目录字典
 	PathFromRobots          bool              // 解析Robots文件找出路径
 	MaxTabsCount            int               // 允许开启的最大标签页数量 即同时爬取的数量
 	ChromiumPath            string            // Chromium的程序路径  `/home/zhusiyu1/chrome-linux/chrome`
@@ -25,6 +25,7 @@ type TaskConfig struct {
 	Proxy                   string            // 请求代理
 	CustomFormValues        map[string]string // 自定义表单填充参数
 	CustomFormKeywordValues map[string]string // 自定义表单关键词填充内容
+	SearchKeywords          []string          // 匹配关键词
 }
 
 type TaskConfigOptFunc func(*TaskConfig)

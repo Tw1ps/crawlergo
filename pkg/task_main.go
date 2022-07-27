@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"encoding/json"
+	"strings"
 	"sync"
 
 	"github.com/Tw1ps/crawlergo/pkg/config"
@@ -27,11 +28,12 @@ type CrawlerTask struct {
 }
 
 type Result struct {
-	ReqList       []*model.Request // 返回的同域名结果
-	AllReqList    []*model.Request // 所有域名的请求
-	AllDomainList []string         // 所有域名列表
-	SubDomainList []string         // 子域名列表
-	resultLock    sync.Mutex       // 合并结果时加锁
+	ReqList       []*model.Request  // 返回的同域名结果
+	AllReqList    []*model.Request  // 所有域名的请求
+	AllDomainList []string          // 所有域名列表
+	SubDomainList []string          // 子域名列表
+	resultLock    sync.Mutex        // 合并结果时加锁
+	FoundMap      map[string]string // ["http://example.com/"] = "keyword1,keyword2"
 }
 
 type tabTask struct {
@@ -53,6 +55,7 @@ func NewCrawlerTask(targets []*model.Request, taskConf TaskConfig) (*CrawlerTask
 			},
 		},
 	}
+	crawlerTask.Result.FoundMap = make(map[string]string)
 
 	if len(targets) == 1 {
 		_newReq := *targets[0]
@@ -223,6 +226,7 @@ func (t *tabTask) Task() {
 		IgnoreKeywords:          t.crawlerTask.Config.IgnoreKeywords,
 		CustomFormValues:        t.crawlerTask.Config.CustomFormValues,
 		CustomFormKeywordValues: t.crawlerTask.Config.CustomFormKeywordValues,
+		SearchKeywords:          t.crawlerTask.Config.SearchKeywords,
 	})
 	tab.Start()
 
@@ -230,6 +234,12 @@ func (t *tabTask) Task() {
 	t.crawlerTask.Result.resultLock.Lock()
 	t.crawlerTask.Result.AllReqList = append(t.crawlerTask.Result.AllReqList, tab.ResultList...)
 	t.crawlerTask.Result.resultLock.Unlock()
+
+	if len(tab.FoundKeywords) != 0 {
+		v := strings.Join(tab.FoundKeywords, ",")
+		logger.Logger.Infof("[+] %s %s", t.req.URL.String(), v)
+		t.crawlerTask.Result.FoundMap[t.req.URL.String()] = v
+	}
 
 	for _, req := range tab.ResultList {
 		if t.crawlerTask.Config.FilterMode == config.SimpleFilterMode {
@@ -252,4 +262,5 @@ func (t *tabTask) Task() {
 			}
 		}
 	}
+
 }

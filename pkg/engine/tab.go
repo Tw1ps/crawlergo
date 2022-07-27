@@ -38,6 +38,7 @@ type Tab struct {
 	FoundRedirection bool
 	DocBodyNodeId    cdp.NodeID
 	config           TabConfig
+	FoundKeywords    []string
 
 	lock sync.Mutex
 
@@ -61,6 +62,7 @@ type TabConfig struct {
 	Proxy                   string
 	CustomFormValues        map[string]string
 	CustomFormKeywordValues map[string]string
+	SearchKeywords          []string
 }
 
 type bindingCallPayload struct {

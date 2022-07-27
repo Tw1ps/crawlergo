@@ -34,6 +34,7 @@ var cliFlags = []cli.Flag{
 	SetPushPoolMax(),
 	SetLogLevel(),
 	SetNoHeadless(),
+	SetSearchKeywords(),
 }
 
 func SetChromePath() *cli.PathFlag {
@@ -50,7 +51,7 @@ func SetCustomHeaders() *cli.StringFlag {
 	return &cli.StringFlag{
 		Name:        "custom-headers",
 		Usage:       "add additional `Headers` to each request. The input string will be called json.Unmarshal",
-		Value:       fmt.Sprintf(`{"Spider-Name": "crawlergo", "User-Agent": "%s"}`, config.DefaultUA),
+		Value:       fmt.Sprintf(`{"User-Agent": "%s"}`, config.DefaultUA),
 		Destination: &taskConfig.ExtraHeadersString,
 	}
 }
@@ -268,5 +269,15 @@ func SetNoHeadless() *cli.BoolFlag {
 		Value:       false,
 		Usage:       "no headless mode",
 		Destination: &taskConfig.NoHeadless,
+	}
+}
+
+func SetSearchKeywords() *cli.StringFlag {
+	return &cli.StringFlag{
+		Name:        "search-keyword",
+		Aliases:     []string{"sk"},
+		Value:       "",
+		Usage:       "search keywords in response body. Such as \"-sk hello,power\".",
+		Destination: &searchKeywords,
 	}
 }

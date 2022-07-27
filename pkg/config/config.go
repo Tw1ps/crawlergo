@@ -7,11 +7,11 @@ import (
 )
 
 const (
-	DefaultUA               = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.0 Safari/537.36"
+	DefaultUA               = "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Mobile Safari/537.36 Edg/103.0.1264.71"
 	MaxTabsCount            = 10
 	TabRunTimeout           = 20 * time.Second
-	DefaultInputText        = "Crawlergo"
-	FormInputKeyword        = "Crawlergo"
+	DefaultInputText        = ""
+	FormInputKeyword        = ""
 	SuspectURLRegex         = `(?:"|')(((?:[a-zA-Z]{1,10}://|//)[^"'/]{1,}\.[a-zA-Z]{2,}[^"']{0,})|((?:/|\.\./|\./)[^"'><,;|*()(%%$^/\\\[\]][^"'><,;|()]{1,})|([a-zA-Z0-9_\-/]{1,}/[a-zA-Z0-9_\-/]{1,}\.(?:[a-zA-Z]{1,4}|action)(?:[\?|#][^"|']{0,}|))|([a-zA-Z0-9_\-/]{1,}/[a-zA-Z0-9_\-/]{3,}(?:[\?|#][^"|']{0,}|))|([a-zA-Z0-9_\-]{1,}\.(?:php|asp|aspx|jsp|json|action|html|js|txt|xml)(?:[\?|#][^"|']{0,}|)))(?:"|')`
 	URLRegex                = `((https?|ftp|file):)?//[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]`
 	AttrURLRegex            = ``
@@ -92,7 +92,7 @@ var (
 	ScriptSuffixSet mapset.Set
 )
 
-var DefaultIgnoreKeywords = []string{"logout", "quit", "exit"}
+var DefaultIgnoreKeywords = []string{"logout", "quit", "exit", "login", "sign", "register"}
 var AllowedFormName = []string{"default", "mail", "code", "phone", "username", "password", "qq", "id_card", "url", "date", "number"}
 
 type ContinueResourceList []string
@@ -100,23 +100,23 @@ type ContinueResourceList []string
 var InputTextMap = map[string]map[string]interface{}{
 	"mail": {
 		"keyword": []string{"mail"},
-		"value":   "crawlergo@gmail.com",
+		"value":   "fake@gmail.com",
 	},
 	"code": {
 		"keyword": []string{"yanzhengma", "code", "ver", "captcha"},
-		"value":   "123a",
+		"value":   "1551",
 	},
 	"phone": {
 		"keyword": []string{"phone", "number", "tel", "shouji"},
-		"value":   "18812345678",
+		"value":   "18812345679",
 	},
 	"username": {
 		"keyword": []string{"name", "user", "id", "login", "account"},
-		"value":   "crawlergo@gmail.com",
+		"value":   "admin",
 	},
 	"password": {
 		"keyword": []string{"pass", "pwd"},
-		"value":   "Crawlergo6.",
+		"value":   "123456",
 	},
 	"qq": {
 		"keyword": []string{"qq", "wechat", "tencent", "weixin"},
@@ -128,7 +128,7 @@ var InputTextMap = map[string]map[string]interface{}{
 	},
 	"url": {
 		"keyword": []string{"url", "site", "web", "blog", "link"},
-		"value":   "https://crawlergo.nice.cn/",
+		"value":   "https://google.com/",
 	},
 	"date": {
 		"keyword": []string{"date", "time", "year", "now"},

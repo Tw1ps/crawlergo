@@ -88,8 +88,8 @@ func (tab *Tab) HandleAuthRequired(req *fetch.EventAuthRequired) {
 	ctx := tab.GetExecutor()
 	authRes := fetch.AuthChallengeResponse{
 		Response: fetch.AuthChallengeResponseResponseProvideCredentials,
-		Username: "Crawlergo",
-		Password: "Crawlergo",
+		Username: "admin",
+		Password: "admin",
 	}
 	// 取消认证
 	_ = fetch.ContinueWithAuth(req.RequestID, &authRes).Do(ctx)
@@ -109,7 +109,7 @@ func (tab *Tab) HandleNavigationReq(req *model2.Request, v *fetch.EventRequestPa
 	if tab.FoundRedirection && tab.IsTopFrame(v.FrameID.String()) {
 		logger.Logger.Debug("redirect navigation req: " + req.URL.String())
 		//_ = fetch.FailRequest(v.RequestID, network.ErrorReasonConnectionAborted).Do(ctx)
-		body := base64.StdEncoding.EncodeToString([]byte(`<html><body>Crawlergo</body></html>`))
+		body := base64.StdEncoding.EncodeToString([]byte(`<html><body>302</body></html>`))
 		param := fetch.FulfillRequest(v.RequestID, 200).WithBody(body)
 		err := param.Do(ctx)
 		if err != nil {
@@ -201,6 +201,13 @@ func (tab *Tab) ParseResponseURL(v *network.EventResponseReceived) {
 		return
 	}
 	resStr := string(res)
+
+	// 匹配关键词
+	for _, word := range tab.config.SearchKeywords {
+		if strings.Contains(resStr, word) {
+			tab.FoundKeywords = append(tab.FoundKeywords, word)
+		}
+	}
 
 	urlRegex := regexp.MustCompile(config.SuspectURLRegex)
 	urlList := urlRegex.FindAllString(resStr, -1)
