@@ -105,7 +105,7 @@ func NewTab(browser *Browser, navigateReq model2.Request, config TabConfig) *Tab
 		// 解析HTML文档中的URL
 		// 查找当前页面的编码
 		case *network.EventResponseReceived:
-			if v.Response.MimeType == "application/javascript" || v.Response.MimeType == "text/html" || v.Response.MimeType == "application/json" {
+			if v.Response.MimeType == "application/javascript" || v.Response.MimeType == "text/html" || v.Response.MimeType == "application/json" || v.Response.MimeType == "text/xml" || v.Response.MimeType == "text/plain" {
 				tab.WG.Add(1)
 				go tab.ParseResponseURL(v)
 			}

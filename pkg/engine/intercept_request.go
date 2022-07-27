@@ -215,7 +215,7 @@ func (tab *Tab) ParseResponseURL(v *network.EventResponseReceived) {
 
 		url = url[1 : len(url)-1]
 		url_lower := strings.ToLower(url)
-		if strings.HasPrefix(url_lower, "image/x-icon") || strings.HasPrefix(url_lower, "text/css") || strings.HasPrefix(url_lower, "text/javascript") {
+		if strings.HasPrefix(url_lower, "image/x-icon") || strings.HasPrefix(url_lower, "text/css") || strings.HasPrefix(url_lower, "text/javascript") || strings.HasPrefix(url_lower, "text/xml") || strings.HasPrefix(url_lower, "application/x-www-form-urlencoded") || strings.HasPrefix(url_lower, "text/html") || strings.HasPrefix(url_lower, "text/plain") || strings.HasPrefix(url_lower, "application/javascript") {
 			continue
 		}
 
