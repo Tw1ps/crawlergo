@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Qianlitp/crawlergo/pkg/logger"
+	"github.com/Tw1ps/crawlergo/pkg/logger"
 
 	"github.com/chromedp/cdproto/browser"
 	"github.com/chromedp/chromedp"

@@ -7,8 +7,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/Qianlitp/crawlergo/pkg/config"
-	"github.com/Qianlitp/crawlergo/pkg/tools"
+	"github.com/Tw1ps/crawlergo/pkg/config"
+	"github.com/Tw1ps/crawlergo/pkg/tools"
 )
 
 type Filter struct {

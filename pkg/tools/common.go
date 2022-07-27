@@ -9,7 +9,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/Qianlitp/crawlergo/pkg/logger"
+	"github.com/Tw1ps/crawlergo/pkg/logger"
 )
 
 func StrMd5(str string) string {

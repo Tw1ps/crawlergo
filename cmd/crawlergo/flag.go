@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.com/Qianlitp/crawlergo/pkg/config"
+
+	"github.com/Tw1ps/crawlergo/pkg/config"
 	"github.com/urfave/cli/v2"
 )
 

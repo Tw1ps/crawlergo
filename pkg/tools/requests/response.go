@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/Qianlitp/crawlergo/pkg/logger"
+	"github.com/Tw1ps/crawlergo/pkg/logger"
 )
 
 // 自定义一些函数

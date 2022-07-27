@@ -3,7 +3,7 @@ package pkg
 import (
 	"strings"
 
-	"github.com/Qianlitp/crawlergo/pkg/model"
+	"github.com/Tw1ps/crawlergo/pkg/model"
 	mapset "github.com/deckarep/golang-set"
 )
 

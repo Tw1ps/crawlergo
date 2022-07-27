@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"sync"
 
-	"github.com/Qianlitp/crawlergo/pkg/config"
-	engine2 "github.com/Qianlitp/crawlergo/pkg/engine"
-	filter2 "github.com/Qianlitp/crawlergo/pkg/filter"
-	"github.com/Qianlitp/crawlergo/pkg/logger"
-	"github.com/Qianlitp/crawlergo/pkg/model"
+	"github.com/Tw1ps/crawlergo/pkg/config"
+	engine2 "github.com/Tw1ps/crawlergo/pkg/engine"
+	filter2 "github.com/Tw1ps/crawlergo/pkg/filter"
+	"github.com/Tw1ps/crawlergo/pkg/logger"
+	"github.com/Tw1ps/crawlergo/pkg/model"
 
 	"github.com/panjf2000/ants/v2"
 )

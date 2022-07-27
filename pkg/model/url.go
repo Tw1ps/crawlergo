@@ -10,7 +10,7 @@ import (
 
 	"golang.org/x/net/publicsuffix"
 
-	"github.com/Qianlitp/crawlergo/pkg/tools/requests"
+	"github.com/Tw1ps/crawlergo/pkg/tools/requests"
 )
 
 type URL struct {

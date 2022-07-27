@@ -6,11 +6,11 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/Qianlitp/crawlergo/pkg/config"
-	"github.com/Qianlitp/crawlergo/pkg/logger"
-	model2 "github.com/Qianlitp/crawlergo/pkg/model"
-	"github.com/Qianlitp/crawlergo/pkg/tools"
-	"github.com/Qianlitp/crawlergo/pkg/tools/requests"
+	"github.com/Tw1ps/crawlergo/pkg/config"
+	"github.com/Tw1ps/crawlergo/pkg/logger"
+	model2 "github.com/Tw1ps/crawlergo/pkg/model"
+	"github.com/Tw1ps/crawlergo/pkg/tools"
+	"github.com/Tw1ps/crawlergo/pkg/tools/requests"
 
 	mapset "github.com/deckarep/golang-set"
 	"github.com/panjf2000/ants/v2"

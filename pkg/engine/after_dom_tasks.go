@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Qianlitp/crawlergo/pkg/config"
-	"github.com/Qianlitp/crawlergo/pkg/js"
-	"github.com/Qianlitp/crawlergo/pkg/logger"
+	"github.com/Tw1ps/crawlergo/pkg/config"
+	"github.com/Tw1ps/crawlergo/pkg/js"
+	"github.com/Tw1ps/crawlergo/pkg/logger"
 	"github.com/chromedp/cdproto/cdp"
 	"github.com/chromedp/chromedp"
 )

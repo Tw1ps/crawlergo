@@ -11,11 +11,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Qianlitp/crawlergo/pkg/config"
-	"github.com/Qianlitp/crawlergo/pkg/logger"
-	model2 "github.com/Qianlitp/crawlergo/pkg/model"
-	"github.com/Qianlitp/crawlergo/pkg/tools"
-	"github.com/Qianlitp/crawlergo/pkg/tools/requests"
+	"github.com/Tw1ps/crawlergo/pkg/config"
+	"github.com/Tw1ps/crawlergo/pkg/logger"
+	model2 "github.com/Tw1ps/crawlergo/pkg/model"
+	"github.com/Tw1ps/crawlergo/pkg/tools"
+	"github.com/Tw1ps/crawlergo/pkg/tools/requests"
 	"github.com/chromedp/cdproto/fetch"
 	"github.com/chromedp/cdproto/network"
 )
@@ -50,7 +50,7 @@ func (tab *Tab) InterceptRequest(v *fetch.EventRequestPaused) {
 	tab.HandleHostBinding(&req)
 
 	// 静态资源 全部阻断
-	// https://github.com/Qianlitp/crawlergo/issues/106
+	// https://github.com/Tw1ps/crawlergo/issues/106
 	if config.StaticSuffixSet.Contains(url.FileExt()) {
 		_ = fetch.FailRequest(v.RequestID, network.ErrorReasonBlockedByClient).Do(ctx)
 		req.Source = config.FromStaticRes

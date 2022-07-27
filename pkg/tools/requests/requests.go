@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Qianlitp/crawlergo/pkg/logger"
+	"github.com/Tw1ps/crawlergo/pkg/logger"
 	"github.com/pkg/errors"
 )
 
