@@ -205,7 +205,9 @@ func (tab *Tab) ParseResponseURL(v *network.EventResponseReceived) {
 	// 匹配关键词
 	for _, word := range tab.config.SearchKeywords {
 		if strings.Contains(resStr, word) {
-			tab.FoundKeywords = append(tab.FoundKeywords, word)
+			if !tools.IsContain(tab.FoundKeywords, word) {
+				tab.FoundKeywords = append(tab.FoundKeywords, word)
+			}
 		}
 	}
 

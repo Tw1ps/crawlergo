@@ -75,3 +75,12 @@ func MapStringFormat(data map[string]string) string {
 	str = strings.Trim(str, ",")
 	return str
 }
+
+func IsContain(items []string, item string) bool {
+	for _, eachItem := range items {
+		if eachItem == item {
+			return true
+		}
+	}
+	return false
+}
