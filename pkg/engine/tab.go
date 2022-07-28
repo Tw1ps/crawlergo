@@ -64,6 +64,10 @@ type TabConfig struct {
 	CustomFormKeywordValues map[string]string
 	SearchKeywords          []string
 	RegexpSearchKeywords    []string
+	CollectHrefLinks        bool
+	CollectObjectLinks      bool
+	CollectCommentLinks     bool
+	ParseResponseURL        bool
 }
 
 type bindingCallPayload struct {

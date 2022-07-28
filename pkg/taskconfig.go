@@ -27,6 +27,11 @@ type TaskConfig struct {
 	CustomFormKeywordValues map[string]string // 自定义表单关键词填充内容
 	SearchKeywords          []string          // 匹配关键词
 	RegexpSearchKeywords    []string          // 正则表达式匹配关键词
+	OnePage                 string            // 只请求这个页面和这个页面下获取到的URL
+	CollectHrefLinks        bool              // 函数开关
+	CollectObjectLinks      bool              // 函数开关
+	CollectCommentLinks     bool              // 函数开关
+	ParseResponseURL        bool              // 功能开关
 }
 
 type TaskConfigOptFunc func(*TaskConfig)

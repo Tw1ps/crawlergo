@@ -23,6 +23,9 @@ func (tab *Tab) collectLinks() {
 
 func (tab *Tab) collectHrefLinks() {
 	defer tab.collectLinkWG.Done()
+	if !tab.config.CollectHrefLinks {
+		return
+	}
 	ctx := tab.GetExecutor()
 	// 收集 src href data-url 属性值
 	attrNameList := []string{"src", "href", "data-url", "data-href"}
@@ -39,6 +42,9 @@ func (tab *Tab) collectHrefLinks() {
 
 func (tab *Tab) collectObjectLinks() {
 	defer tab.collectLinkWG.Done()
+	if !tab.config.CollectObjectLinks {
+		return
+	}
 	ctx := tab.GetExecutor()
 	// 收集 object[data] links
 	tCtx, cancel := context.WithTimeout(ctx, time.Second*1)
@@ -52,6 +58,9 @@ func (tab *Tab) collectObjectLinks() {
 
 func (tab *Tab) collectCommentLinks() {
 	defer tab.collectLinkWG.Done()
+	if !tab.config.CollectCommentLinks {
+		return
+	}
 	ctx := tab.GetExecutor()
 	// 收集注释中的链接
 	var nodes []*cdp.Node

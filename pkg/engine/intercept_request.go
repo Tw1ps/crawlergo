@@ -223,6 +223,10 @@ func (tab *Tab) ParseResponseURL(v *network.EventResponseReceived) {
 		}
 	}
 
+	if !tab.config.ParseResponseURL {
+		return
+	}
+
 	urlRegex := regexp.MustCompile(config.SuspectURLRegex)
 	urlList := urlRegex.FindAllString(resStr, -1)
 	for _, url := range urlList {

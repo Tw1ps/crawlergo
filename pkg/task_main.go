@@ -229,6 +229,10 @@ func (t *tabTask) Task() {
 		CustomFormKeywordValues: t.crawlerTask.Config.CustomFormKeywordValues,
 		SearchKeywords:          t.crawlerTask.Config.SearchKeywords,
 		RegexpSearchKeywords:    t.crawlerTask.Config.RegexpSearchKeywords,
+		CollectHrefLinks:        t.crawlerTask.Config.CollectHrefLinks,
+		CollectObjectLinks:      t.crawlerTask.Config.CollectObjectLinks,
+		CollectCommentLinks:     t.crawlerTask.Config.CollectCommentLinks,
+		ParseResponseURL:        t.crawlerTask.Config.ParseResponseURL,
 	})
 	tab.Start()
 
@@ -239,9 +243,13 @@ func (t *tabTask) Task() {
 
 	if len(tab.FoundKeywords) != 0 {
 		fk := tools.RemoveDuplicateElement(tab.FoundKeywords)
-		v := strings.Join(fk, ",")
+		v := strings.Join(fk, ", ")
 		logger.Logger.Infof("[+] %s %s", t.req.URL.String(), v)
 		t.crawlerTask.Result.FoundMap[t.req.URL.String()] = v
+	}
+
+	if t.crawlerTask.Config.OnePage != "" && t.req.URL.String() != t.crawlerTask.Config.OnePage {
+		return
 	}
 
 	for _, req := range tab.ResultList {
