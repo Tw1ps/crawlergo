@@ -181,8 +181,8 @@ func run(c *cli.Context) error {
 	task.Run()
 	result := task.Result
 
-	logger.Logger.Info(fmt.Sprintf("Task finished, %d results, %d requests, %d subdomains, %d domains found.",
-		len(result.ReqList), len(result.AllReqList), len(result.SubDomainList), len(result.AllDomainList)))
+	logger.Logger.Info(fmt.Sprintf("Task finished, %d results, %d requests, %d subdomains, %d domains found, %d keyword found.",
+		len(result.ReqList), len(result.AllReqList), len(result.SubDomainList), len(result.AllDomainList), len(result.FoundMap)))
 
 	// 内置请求代理
 	if pushAddress != "" {
