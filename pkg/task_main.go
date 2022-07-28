@@ -10,6 +10,7 @@ import (
 	filter2 "github.com/Tw1ps/crawlergo/pkg/filter"
 	"github.com/Tw1ps/crawlergo/pkg/logger"
 	"github.com/Tw1ps/crawlergo/pkg/model"
+	"github.com/Tw1ps/crawlergo/pkg/tools"
 
 	"github.com/panjf2000/ants/v2"
 )
@@ -237,7 +238,8 @@ func (t *tabTask) Task() {
 	t.crawlerTask.Result.resultLock.Unlock()
 
 	if len(tab.FoundKeywords) != 0 {
-		v := strings.Join(tab.FoundKeywords, ",")
+		fk := tools.RemoveDuplicateElement(tab.FoundKeywords)
+		v := strings.Join(fk, ",")
 		logger.Logger.Infof("[+] %s %s", t.req.URL.String(), v)
 		t.crawlerTask.Result.FoundMap[t.req.URL.String()] = v
 	}
