@@ -26,6 +26,7 @@ type TaskConfig struct {
 	CustomFormValues        map[string]string // 自定义表单填充参数
 	CustomFormKeywordValues map[string]string // 自定义表单关键词填充内容
 	SearchKeywords          []string          // 匹配关键词
+	RegexpSearchKeywords    []string          // 正则表达式匹配关键词
 }
 
 type TaskConfigOptFunc func(*TaskConfig)

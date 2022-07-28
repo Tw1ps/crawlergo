@@ -227,6 +227,7 @@ func (t *tabTask) Task() {
 		CustomFormValues:        t.crawlerTask.Config.CustomFormValues,
 		CustomFormKeywordValues: t.crawlerTask.Config.CustomFormKeywordValues,
 		SearchKeywords:          t.crawlerTask.Config.SearchKeywords,
+		RegexpSearchKeywords:    t.crawlerTask.Config.RegexpSearchKeywords,
 	})
 	tab.Start()
 

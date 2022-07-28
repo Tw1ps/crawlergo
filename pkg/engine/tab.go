@@ -63,6 +63,7 @@ type TabConfig struct {
 	CustomFormValues        map[string]string
 	CustomFormKeywordValues map[string]string
 	SearchKeywords          []string
+	RegexpSearchKeywords    []string
 }
 
 type bindingCallPayload struct {

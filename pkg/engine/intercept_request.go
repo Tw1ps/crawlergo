@@ -211,6 +211,18 @@ func (tab *Tab) ParseResponseURL(v *network.EventResponseReceived) {
 		}
 	}
 
+	// 正则匹配关键词
+	for _, pattern := range tab.config.RegexpSearchKeywords {
+		re, err := regexp.Compile(pattern)
+		if err != nil {
+			continue
+		}
+		m := re.FindAllString(resStr, -1)
+		if len(m) > 0 {
+			tab.FoundKeywords = append(tab.FoundKeywords, m...)
+		}
+	}
+
 	urlRegex := regexp.MustCompile(config.SuspectURLRegex)
 	urlList := urlRegex.FindAllString(resStr, -1)
 	for _, url := range urlList {
